@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Biolog-insight</title>
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+   @* <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />*@
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/style.css">
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/scripts/powerbi.js"></script>
+</head>
+<body>
+    <div class="wrapper h-100">
+        <div class="sidebar back-p h-100 open" id="sidebar">
+            <div class="top">
+                <div class="left cd-center back-p-s flex-fill">
+                    <span class="d-block c-font f-120 text-white l-s">Biolog-insight</span>
+                </div>
+                <div class="right cd-center text-white c-pointer menu-toggle-button">
+                    <i class="fa fa-bars fa-2x"></i>
+                </div>
+            </div>
+            <div class="menu back-p flex-fill">
+                <nav class="main-nav f-110">
+                    <ul>
+                        <li id="li_home" class="active">
+                            <a href="@Url.Action("Index","Home")" class="text-white"><i class="fa fa-home"></i><span class="link">Home</span></a>
+                        </li>
+                        <li id="li_platelet">
+                            <a href="@Url.Action("Platelet","Home")" class="text-white"><img src="@Url.Content("~/images/powerbi_icon-white.svg")" width="18px;" /><span class="link">Platelet Study Dashboard</span></a>
+                        </li>
+                        <li id="li_blood">
+                            <a href="@Url.Action("Bloodunit","Home")" class="text-white"><i class="fa fa-bar-chart-o"></i><span class="link">Blood Unit Tracking</span></a>
+                        </li>
+                        <li id="li_data">
+                            <a href="@Url.Action("DataSummary","Home")" class="text-white"><i class="fa fa-bar-chart-o"></i><span class="link">Hoxworth Data Summary</span></a>
+                        </li>
+                        <li id="li_expiring">
+                            <a href="@Url.Action("ExpiringUnit","Home")" class="text-white"><i class="fa fa-bar-chart-o"></i><span class="link">Expiring Unit Tracking</span></a>
+                        </li>
+                        <li id="li_efid">
+                            <a href="@Url.Action("RFID","Home")" class="text-white"><i class="fa fa-bar-chart-o"></i><span class="link">RFID Profile Report</span></a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-white"><i class="fa fa-adjust"></i><span class="link">Help Center</span></a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-white"><i class="fa fa-cog"></i><span class="link">Settings</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="content flex-fill h-100 light-back">
+        @*<div class="content flex-fill d-flex flex-column light-back">*@
+            <!--Here will go the header-->
+            <div class="container-fluid p-0">
+                <div class="header d-flex bg-white h-60">
+                    <div class="menu-con pl-3 pr-3 cd-center text-white c-pointer menu-toggle-button">
+                        <i class="fa text-p fa-bars fa-2x"></i>
+                    </div>
+                    <div class="searchbox d-flex flex-fill cd-center pl-md-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text border-0 bg-transparent" id="basic-addon1"><i class="fa fa-search icon fa-color"></i></span>
+                            </div>
+                            <input type="text" class="form-control border-0" placeholder="Search hospitals, products, units or help" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="usercon d-flex">
+                        <div class="noti col pt-0 pb-0 pl-3 pr-3 cd-center d-flex f-120 text-muted border-right">
+                            <span class="new-count"><i class="fa fa-bell fa-color"></i></span>
+                        </div>
+                        <div class="col drop-con pt-0 pb-0 pl-3 pr-3 cd-center d-flex flex-fill">
+                            <button class="p-0 m-0 border-0 bg-transparent h-100 dropdown-toggle text-muted" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="pr-2 pro-name">@ViewBag.username</span>
+                                <i class="fa fa-chevron-down pr-3"></i>
+                                <img src="~/images/user.png" class="rounded-circle" width="40" height="40">
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item text-secondary" href="#">Account Setting</a>
+                                <a class="dropdown-item text-secondary" href="#">Help</a>
+                                <a class="dropdown-item text-secondary" href="@Url.Action("Logout","Login")">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- here will go the content -->
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <!-- <script src="vendor/jquery/jquery.slim.min.js"></script> -->
+
+    <script>
+        $(document).ready(function () {
+            $sidebar = $('#sidebar');
+            if (window.innerWidth <= '767') {
+                $sidebar.removeClass("s-open open");
+            }
+
+
+            $('div.menu-toggle-button').on('click', function () {
+                if ($sidebar.hasClass("s-open")) {
+                    $sidebar.removeClass("s-open");
+                }
+                $sidebar.toggleClass('open');
+            });
+        });</script>
+</body>
+</html>
